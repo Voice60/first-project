@@ -12,6 +12,7 @@ const App = () => {
     </div>
   );
 } 
+//чики брики
 
 export default App;
 
