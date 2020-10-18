@@ -3,12 +3,12 @@
   background-color: rgb(44, 31, 31);
 }
 
-ul {
+.nav ul {
   margin: 10px;
   padding: 0;
   list-style-type: none;
 }
 
-ul li {
+.nav ul li {
   margin-bottom: 10px;
 }
