@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  grid-area: h;
+  background-color: rgb(46, 15, 15);
+}
+
+p {
+  margin: 0;
+}
+
+.logo {
+  width: 60px;
+  margin: 2px 10px 2px 5px;
+}

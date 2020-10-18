@@ -1,9 +1,10 @@
 import React from 'react';
+import c from './Header.module.css'
 
 const Header = () => {
   return (
-  <header className="header">
-    <img src="https://pngicon.ru/file/uploads/ucrainec.png" className="logo"></img>
+  <header className={c.header}>
+    <img src="https://pngicon.ru/file/uploads/ucrainec.png" className={c.logo}></img>
     <p>українська соціальна мережа</p>
   </header>
   );
