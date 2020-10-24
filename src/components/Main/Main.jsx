@@ -4,7 +4,7 @@ import MyPosts from './MyPosts/MyPosts.jsx'
 
 const Main = () => {
   return (
-    <main className={c.main}>
+    <main>
       {/* <Avatar />
       <Discription /> */}
       <MyPosts />

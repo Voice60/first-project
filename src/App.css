@@ -10,3 +10,10 @@
   grid-template-columns: 150px auto;
   color: aliceblue;
 }
+
+.mainWrap-content {
+  grid-area: m;
+  height: 200px;
+  width: 100%;
+  background-color: #302d2d;
+}
