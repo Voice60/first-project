@@ -11,7 +11,7 @@ const MyPosts = () => {
         <button>Add post</button>
       </div>
       <div className={c.posts}>
-        <Post />
+        <Post likes='15' />
       </div>
     </div>
   )
