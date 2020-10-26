@@ -5,7 +5,7 @@ const Header = () => {
   return (
   <header className={c.header}>
     <img src="https://pngicon.ru/file/uploads/ucrainec.png" className={c.logo}></img>
-    <p>українська соціальна мережа</p>
+    <p className={c.siteName}>українська соціальна мережа</p>
   </header>
   );
 }

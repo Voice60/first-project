@@ -1,5 +1,5 @@
 import React from 'react';
-import c from './Main.module.css'
+import c from './Profile.module.css'
 import MyPosts from './MyPosts/MyPosts.jsx'
 
 const Main = () => {
