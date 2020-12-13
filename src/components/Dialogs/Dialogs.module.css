@@ -1,32 +1,30 @@
-.dialogsPage {
+.dialogsPage {}
 
+.dialogsPage .searchMenu {}
+
+.dialogsPage .dialogsWindow {
+  display: flex;
 }
 
-.dialogsPage .searchMenu {
-
+.dialogsPage .dialogsWindow .dialogsList {
+  box-sizing: border-box;
+  width: 20%;
+  margin-right: 10px;
+  border-right: 1px #bbb solid;
 }
 
-.dialogsPage .dialogsList {
-
-}
-
-.dialogsPage .dialogsList ul {
+.dialogsPage .dialogsWindow .dialogsList ul {
   list-style-type: none;
   margin: 0;
   padding: 10px;
 }
 
-.dialogsPage .dialogsList ul .dialogsItem {
-  width: 100%;
-  text-decoration: none;
-  color: #fff;
+.dialogsPage .dialogsWindow .messages {
+  width: 80%;
 }
 
-.dialogsPage .dialogsList ul .dialogsItem a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.dialogsPage .dialogsList ul .dialogsItem .activeLink {
-  color: #b9b8b8;
+.dialogsPage .dialogsWindow .messages ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
 }

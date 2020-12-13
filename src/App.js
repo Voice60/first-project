@@ -8,18 +8,25 @@ import Groups from './components/Groups/Groups';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import { BrowserRouter, Route } from 'react-router-dom';
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className="mainWrap">
         <Header />
         <Nav />
         <div className="mainWrap-content">
-          <Route path='/dialogs' component={Dialogs} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/groups' component={Groups} />
-          <Route path='/music' component={Music} />
-          <Route path='/settings' component={Settings} />
+          <Route path='/dialogs'
+            render={() => <Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />} />
+          <Route path='/profile'
+            render={() => <Profile
+              profilePage={props.state.profilePage}
+              dispatch={props.dispatch} />} />
+          <Route path='/groups'
+            render={() => <Groups />} />
+          <Route path='/music'
+            render={() => <Music />} />
+          <Route path='/settings'
+            render={() => <Settings />} />
         </div>
       </div>
     </BrowserRouter>

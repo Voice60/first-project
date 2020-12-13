@@ -1,14 +1,12 @@
-.item {
+.message {
+  margin: 10px;
   display: flex;
-  flex-direction: row;
 }
 
-.item .message {
-  margin: 0 20px 0 0;
-
+.message p {
+  margin: 0;
 }
-
-.item img {
+.message img {
   width: 30px;
   height: 30px;
   border-radius: 50%;

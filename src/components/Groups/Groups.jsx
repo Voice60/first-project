@@ -1,5 +1,5 @@
 import React from 'react';
-import c from './Groups.module.css';
+import styles from './Groups.module.css';
 
 const Groups = () => {
   return (

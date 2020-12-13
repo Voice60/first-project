@@ -1,13 +1,16 @@
 import React from 'react';
-import c from './Profile.module.css'
-import MyPosts from './MyPosts/MyPosts.jsx'
+import MyPosts from './MyPosts/MyPosts.jsx';
 
-const Main = () => {
+const Main = (props) => {
   return (
     <main>
       {/* <Avatar />
       <Discription /> */}
-      <MyPosts />
+      <MyPosts
+        posts={props.profilePage.posts}
+        dispatch={props.dispatch}
+        newPostText={props.profilePage.newPostText} />
+        addPostActionCreator
     </main>
   )
 }
