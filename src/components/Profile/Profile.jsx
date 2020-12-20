@@ -6,7 +6,7 @@ const Main = (props) => {
     <main>
       {/* <Avatar />
       <Discription /> */}
-      <MyPostsContainer store={props.store}/>
+      <MyPostsContainer />
     </main>
   )
 }
