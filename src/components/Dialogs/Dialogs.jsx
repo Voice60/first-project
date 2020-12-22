@@ -5,7 +5,7 @@ import Message from './Message/Message'
 
 const Dialogs = (props) => {
   debugger
-  let state = props.state.dialogsPage
+  let state = props.dialogsPage
   let newMessageElement = React.createRef();
 
   let addMessage = () => {
