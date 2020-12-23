@@ -4,7 +4,6 @@ import DialogsItem from './DialogsItem/DialogsItem'
 import Message from './Message/Message'
 
 const Dialogs = (props) => {
-  debugger
   let state = props.dialogsPage
   let newMessageElement = React.createRef();
 
