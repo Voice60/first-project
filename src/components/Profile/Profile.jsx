@@ -1,14 +1,14 @@
 import React from 'react';
 import MyPostsContainer from './MyPosts/MyPostsContainer.jsx';
+import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
 
-const Main = (props) => {
+const Profile = (props) => {
   return (
     <main>
-      {/* <Avatar />
-      <Discription /> */}
+      <ProfileInfo profile={props.profile}/>
       <MyPostsContainer />
     </main>
   )
 }
 
-export default Main;
+export default Profile;
