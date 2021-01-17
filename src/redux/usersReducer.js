@@ -57,4 +57,3 @@ export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetchin
 
 export default usersReducer;
 
-window.userInfo = initialState
