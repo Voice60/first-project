@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { UsersAPI } from '../../../api/api';
+import { unfollow } from '../../../redux/usersReducer';
 import styles from './User.module.css';
 
 const Users = (props) => {
@@ -30,39 +32,10 @@ const Users = (props) => {
           <p className={styles.name}>{user.name}</p>
           <p className={styles.status}>{user.status}</p>
           {user.followed
-            ? <button onClick={() => {
-
-              axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                withCredentials: true,
-                headers: {
-                  'API-KEY': '3e1ac1ca-cb43-40e4-a712-258cafdbad88'
-                }
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
-                    props.unfollow(user.id)
-                  }
-                })
-
-
-            }} className={styles.follow}>Unfollow</button>
-            : <button onClick={() => {
-
-              axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                withCredentials: true,
-                headers: {
-                  'API-KEY': '3e1ac1ca-cb43-40e4-a712-258cafdbad88'
-                }
-
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
-                    props.follow(user.id)
-                  }
-                })
-
-
-            }} className={styles.follow}
+            ? <button disabled={props.followingInProgress.some(id => id === user.id)}
+              onClick={() => { props.unfollow(user.id) }} className={styles.follow}>Unfollow</button>
+            : <button disabled={props.followingInProgress.some(id => id === user.id)}
+              onClick={() => { props.follow(user.id) }} className={styles.follow}
             >Follow</button>}
         </div>
       </div>
