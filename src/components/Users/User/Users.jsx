@@ -1,8 +1,5 @@
-import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { UsersAPI } from '../../../api/api';
-import { unfollow } from '../../../redux/usersReducer';
 import styles from './User.module.css';
 
 const Users = (props) => {
@@ -35,8 +32,7 @@ const Users = (props) => {
             ? <button disabled={props.followingInProgress.some(id => id === user.id)}
               onClick={() => { props.unfollow(user.id) }} className={styles.follow}>Unfollow</button>
             : <button disabled={props.followingInProgress.some(id => id === user.id)}
-              onClick={() => { props.follow(user.id) }} className={styles.follow}
-            >Follow</button>}
+              onClick={() => { props.follow(user.id) }} className={styles.follow}>Follow</button>}
         </div>
       </div>
     })}

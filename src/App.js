@@ -9,6 +9,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Users from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/login';
 const App = (props) => {
   return (
     <BrowserRouter>
@@ -18,6 +19,8 @@ const App = (props) => {
         <div className="mainWrap-content">
           <Route path='/dialogs'
             render={() => <DialogsContainer />} />
+          <Route path='/login'
+            render={() => <Login />} />
           <Route path='/profile/:userId?'
             render={() => <ProfileContainer />} />
           <Route path='/groups'
