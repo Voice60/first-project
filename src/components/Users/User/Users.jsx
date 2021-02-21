@@ -9,14 +9,14 @@ const Users = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
+
   let defaultUserPhotoURL =
     'https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg'
-
   return <div className={styles.usersPage}>
     <div>
       {pages.map(page => {
         return <span style={spanStyle}
-          className={`${props.currentPage === page && styles.selected} ${styles.page}`}
+          className={`${props.currentPage === page && styles.selected}`}
           onClick={() => { props.onPageChanged(page) }}>{page}</span>
       })}
     </div>

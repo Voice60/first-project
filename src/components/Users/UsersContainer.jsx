@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setIsFollowing, unfollow, getUsers } from '../../redux/usersReducer';
+import { follow, setCurrentPage, setIsFollowing, unfollow, setUsersTh } from '../../redux/usersReducer';
 import Users from './User/Users'
 import Preloader from '../common/preloader/Preloader';
 import { compose } from 'redux';
 import { WithAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getUsers, getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount } from '../../redux/usersSelectors';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.setCurrentPage, this.props.pageSize)
+    this.props.setUsersTh(this.props.currentPage, this.props.pageSize)
   }
 
   onPageChanged = (page) => {
-    this.props.getUsers(page, this.props.pageSize)
+    this.props.setUsersTh(page, this.props.pageSize)
   }
 
   render() {
@@ -31,19 +32,28 @@ class UsersContainer extends React.Component {
   }
 }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     usersPage: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     followingInProgress: state.usersPage.followingInProgress
+//   }
+// }
 let mapStateToProps = (state) => {
   return {
-    usersPage: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    followingInProgress: state.usersPage.followingInProgress
+    usersPage: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    followingInProgress: getFollowingInProgress(state)
   }
 }
 
 export default compose(
   WithAuthRedirect,
   connect(mapStateToProps, {
-      follow, unfollow, setIsFollowing, setCurrentPage, getUsers
+      follow, unfollow, setIsFollowing, setCurrentPage, setUsersTh
     })
 )(UsersContainer)

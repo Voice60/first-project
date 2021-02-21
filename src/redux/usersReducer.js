@@ -71,10 +71,11 @@ export const setIsFollowing = (followingInProgress, userId) => ({ type: IS_FOLLO
 
 //thunks
 
-export const getUsers = (currentPage, pageSize) => {
+export const setUsersTh = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(setIsFetching(true))
     usersAPI.getUsers(currentPage, pageSize).then(data => {
+      dispatch(setCurrentPage(currentPage))
       dispatch(setUsers(data.items))
       dispatch(setTotalUsersCount(data.totalCount))
       dispatch(setIsFetching(false))
