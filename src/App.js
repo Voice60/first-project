@@ -11,12 +11,13 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/login';
 import { getMe, logout } from './redux/auth-redusers';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { Component } from 'react';
 import { initializeApp } from './redux/appReducer';
 import { initialize } from 'redux-form';
 import Preloader from './components/common/preloader/Preloader';
+import store from './redux/reduxStore';
 class App extends Component {
   componentDidMount() {
     this.props.initializeApp()
@@ -57,8 +58,20 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 })
 
-export default compose(
+const AppWrap = compose(
   // withRouter,
   connect(mapStateToProps, { initializeApp })
 )(App)
+
+const MainApp = (props) => {
+  return (
+    <React.StrictMode>
+      <Provider store={store}>
+        <AppWrap />
+      </Provider>
+    </React.StrictMode>
+  )
+} 
+
+export default MainApp
 

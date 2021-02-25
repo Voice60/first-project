@@ -9,13 +9,13 @@ import styles from '../common/FormsControls/FormsControls.module.css'
 
 const maxLength30 = maxLengthCreator(30)
 
-let LoginForm = (props) => {
+let LoginForm = ({handleSubmit, error}) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div><Field placeholder={'Email'} name={'email'} component={Input} validate={[requiredField, maxLength30]} /></div>
       <div><Field placeholder={'Password'} type={'password'} name={'password'} component={Input} validate={[requiredField, maxLength30]}/></div>
       <div><Field type={'checkbox'} name={'rememberMe'} component={Input} />remember me</div>
-      {props.error && <div className={styles.formError}>{props.error}</div>}
+      {error && <div className={styles.formError}>{error}</div>}
       <div><button>login</button></div>
     </form>
   )
