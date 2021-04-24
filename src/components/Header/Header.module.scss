@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+
+  @media (max-width: 400px) {
+    padding: 0 24px !important;
+  }
+  .siteName {
+    margin: 0;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+
+    @media (max-width: 400px) {
+      font-size: 16px;
+    }
+  }
+
+  .profileInfo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    .profileName {
+      margin: 0 15px 0 0;
+    }
+  }
+}
