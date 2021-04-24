@@ -6,7 +6,7 @@ const Post = (props) => {
 
   let postElements = (
     <div className={styles.item}>
-      <img className={styles.img} src={imgLink}></img>
+      <img className={styles.img} src={imgLink} alt='myPhoto'></img>
       <p className={styles.message}>{props.message}</p>
       <span className={styles.likes}>{props.likes}</span>
     </div>)

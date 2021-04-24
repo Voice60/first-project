@@ -1,6 +1,5 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import styles from './ProfileDataForm.module.css'
 
 let ProfileDataForm = (props) => {
   return <form onSubmit={props.handleSubmit}>
@@ -41,7 +40,7 @@ let ProfileDataForm = (props) => {
 
     })}
     <button>Save</button>
-    {props.error && <div className={styles.formError}>{props.error}</div>}
+    {props.error && <div>{props.error}</div>}
   </form>
 }
 

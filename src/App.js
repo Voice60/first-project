@@ -1,13 +1,10 @@
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
-import React from 'react';
-import { Component } from 'react';
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
+import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
-import { initialize } from 'redux-form';
-
+import { BrowserRouter, Route } from 'react-router-dom';
 import { compose } from 'redux';
-
+import './App.css';
 import Preloader from './components/common/preloader/Preloader';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -16,14 +13,9 @@ import Nav from './components/Nav/Nav';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Users from './components/Users/UsersContainer';
 import { initializeApp } from './redux/appReducer';
-import { getMe, logout } from './redux/auth-redusers';
 import store from './redux/reduxStore';
 
-import './App.css';
-import 'antd/dist/antd.css';
-
-const { Header, Content, Sider } = Layout;
-
+const { Content, Sider } = Layout;
 
 class App extends Component {
   componentDidMount() {

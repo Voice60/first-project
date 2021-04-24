@@ -1,11 +1,10 @@
-import styles from './Nav.module.scss'
 import { Menu } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
 
-  let isCurrentPageProfile = {}
+  // let isCurrentPageProfile = {}
 
   return (
     <Menu
@@ -20,16 +19,7 @@ const Nav = () => {
       <Menu.Item key="2">
         <NavLink to='/dialogs'>Messages</NavLink>
       </Menu.Item>
-      <Menu.Item key="3">
-        <NavLink to='/groups'>Groups</NavLink>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <NavLink to='/music'>Music</NavLink>
-      </Menu.Item>
-      <Menu.Item key="5">
-        <NavLink to='/settings'>Settings</NavLink>
-      </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key="3\\ъъъ\\">
         <NavLink to='/users'>Users</NavLink>
       </Menu.Item>
     </Menu>

@@ -14,7 +14,7 @@ const User = ({ user, followingInProgress, unfollow, follow }) => {
     <NavLink to={'/profile/' + user.id}>
       {user.photos.small === null
         ? <Avatar size={100} style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />
-        : <img src={user.photos.small} alt="photo" />}
+        : <img src={user.photos.small} alt="User" />}
     </NavLink>
     <div className={styles.info}>
       <NavLink to={'/profile/' + user.id}>

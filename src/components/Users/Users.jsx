@@ -5,10 +5,12 @@ import User from './User';
 
 const Users = ({ currentPage, onPageChanged, totalUsersCount, pageSize, followingInProgress, follow, unfollow, usersPage }) => {
   return <div >
-    <Pagination onChange={onPageChanged}
+    <Pagination current={currentPage}
+      onChange={onPageChanged}
       total={totalUsersCount}
       pageSize={pageSize}
       showSizeChanger={false}
+      defaultCurrent={1}
     ></Pagination>
     <div className={styles.usersList}>
       {usersPage.map(user =>

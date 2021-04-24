@@ -1,13 +1,12 @@
-import store from './redux/reduxStore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import MainApp from './App';
 
 
-  ReactDOM.render(
-    <MainApp />,
-    document.getElementById('root'));
+ReactDOM.render(
+  <MainApp />,
+  document.getElementById('root'));
 
 
 

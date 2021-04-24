@@ -1,9 +1,8 @@
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { logout } from '../../redux/auth-redusers';
 import AppHeader from './Header';
+
 
 class HeaderContainer extends React.Component {
   render() {

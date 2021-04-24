@@ -1,12 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
-import { maxLengthCreator, requiredField } from '../../utils/validators/validators'
-import { login } from "../../redux/auth-redusers";
-import { Redirect } from 'react-router-dom'
-import styles from '../common/FormsControls/FormsControls.module.css'
-import { Button, Checkbox, Form, Input, message, Typography } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 import Title from 'antd/lib/typography/Title';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { login } from "../../redux/auth-redusers";
 
 let Login = (props) => {
   let onFinish = (values) => {
@@ -24,7 +20,7 @@ let Login = (props) => {
   }
 
   return (
-    <div className={styles.formWrap}>
+    <div>
       <Title>Авторизация</Title>
       <Form
         name='basic'
@@ -49,8 +45,8 @@ let Login = (props) => {
           ]}>
           <Input.Password placeholder='password' />
         </Form.Item>
-        {props.captchaURL && <img src={props.captchaUrl} />}
-        {props.captchaURL && <Form.item
+        {props.captchaURL && <img src={props.captchaUrl} alt='captcha'/>}
+        {props.captchaURL && <Form.Item
           name='captcha'
           rules={[
             {
@@ -59,7 +55,7 @@ let Login = (props) => {
             },
           ]}>
           <Input placeholder='captcha' />
-        </Form.item>}
+        </Form.Item>}
 
         <Form.Item name="rememberMe" default={false} valuePropName="checked">
           <Checkbox>Remember me</Checkbox>

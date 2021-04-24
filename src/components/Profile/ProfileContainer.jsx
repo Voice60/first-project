@@ -1,14 +1,10 @@
 import React from 'react';
-import axios from 'axios';
-import MyPostsContainer from './MyPosts/MyPostsContainer.jsx';
 import { connect } from 'react-redux';
-import { getUserProfile, getStatus, updateStatus, setPhoto, saveProfile } from '../../redux/profileReducer.js';
-import ProfileInfo from './ProfileInfo/ProfileInfo.jsx';
-import Profile from './Profile.jsx';
-import { Redirect, withRouter } from 'react-router-dom';
-import { usersAPI } from '../../api/api.js';
-import { WithAuthRedirect } from "../../hoc/withAuthRedirect";
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import { WithAuthRedirect } from "../../hoc/withAuthRedirect";
+import { getStatus, getUserProfile, saveProfile, setPhoto, updateStatus } from '../../redux/profileReducer.js';
+import Profile from './Profile.jsx';
 
 class ProfileContainer extends React.Component {
   refrezhProfile() {
@@ -25,8 +21,8 @@ class ProfileContainer extends React.Component {
     this.refrezhProfile()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.match.params.userId != prevProps.match.params.userId) {
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refrezhProfile()
     }
   }

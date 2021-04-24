@@ -1,47 +1,37 @@
-import React from 'react'
+import { Input } from 'antd'
+import Text from 'antd/lib/typography/Text'
+import React, { useState, useEffect } from 'react'
 
-class ProfileStatus extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.status
+const ProfileStatusWithHooks = (props) => {
+
+  let [editMode, setEditMode] = useState(false)
+  let [status, setStatus] = useState(props.status)
+
+  useEffect(() => {
+    setStatus(props.status)
+  }, [props.status])
+
+  const activateEditMode = () => {
+    setEditMode(true)
+  }
+  const deactivateEditMode = () => {
+    setEditMode(false)
+    props.updateStatus(status)
   }
 
-  onStatusChange = (e) => {
-    this.setState({
-      status: e.currentTarget.value
-    })
+  const onStatusChange = (e) => {
+    setStatus(e.currentTarget.value)
   }
 
-  activateEditMode = () => {
-    this.setState({
-      editMode: true
-    })
-  }
-  deactivateEditMode = () => {
-    this.setState({
-      editMode: false
-    })
-    this.props.updateStatus(this.state.status)
-  }
+  useState(false)
 
-  componentDidUpdate(prevProps, prevState) {
-
-    if (prevProps.status !== this.props.status) {
-        this.setState({
-            status: this.props.status
-        });
-    }
-}
-  
-  render() {
-    return (
-      <div>
-        {this.state.editMode
-          ? <input autoFocus onChange={this.onStatusChange} onBlur={this.deactivateEditMode} value={this.state.status} />
-          : <span onClick={this.activateEditMode}>{this.props.status || '------'}</span>}
-      </div >
-    )
-  }
+  return (
+    <div>
+      {editMode
+        ? <Input autoFocus onChange={onStatusChange} onBlur={deactivateEditMode} value={status} placeholder="Basic usage" />
+        : <Text onClick={activateEditMode} type="secondary">{status || '------'}</Text>}
+    </div >
+  )
 }
 
-export default ProfileStatus
+export default ProfileStatusWithHooks
