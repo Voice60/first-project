@@ -1,31 +1,38 @@
+import styles from './Nav.module.scss'
+import { Menu } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './Nav.module.css'
 
 const Nav = () => {
+
+  let isCurrentPageProfile = {}
+
   return (
-    <nav className={styles.nav}>
-      <ul>
-        <li className={styles.item}>
-          <NavLink to='/profile' activeClassName={styles.activeLink}>Profile</NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink to='/dialogs' activeClassName={styles.activeLink}>Messages</NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink to='/groups' activeClassName={styles.activeLink}>Groups</NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink to='/music' activeClassName={styles.activeLink}>Music</NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink to='/settings' activeClassName={styles.activeLink}>Settings</NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink to='/users' activeClassName={styles.activeLink}>Users</NavLink>
-        </li>
-      </ul>
-    </nav>
+    <Menu
+      mode="inline"
+      defaultSelectedKeys={['1']}
+      defaultOpenKeys={['sub1']}
+      style={{ height: '100%', borderRight: 0 }}
+    >
+      <Menu.Item key="1">
+        <NavLink to='/profile'>Profile</NavLink>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <NavLink to='/dialogs'>Messages</NavLink>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <NavLink to='/groups'>Groups</NavLink>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <NavLink to='/music'>Music</NavLink>
+      </Menu.Item>
+      <Menu.Item key="5">
+        <NavLink to='/settings'>Settings</NavLink>
+      </Menu.Item>
+      <Menu.Item key="6">
+        <NavLink to='/users'>Users</NavLink>
+      </Menu.Item>
+    </Menu>
   );
 }
 

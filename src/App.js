@@ -1,23 +1,30 @@
+import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu } from 'antd';
 import React from 'react';
-import './App.css';
-import Nav from './components/Nav/Nav';
-import Groups from './components/Groups/Groups';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Users from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/login';
-import { getMe, logout } from './redux/auth-redusers';
-import { connect, Provider } from 'react-redux';
-import { compose } from 'redux';
 import { Component } from 'react';
-import { initializeApp } from './redux/appReducer';
+import { connect, Provider } from 'react-redux';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import { initialize } from 'redux-form';
+
+import { compose } from 'redux';
+
 import Preloader from './components/common/preloader/Preloader';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/LoginContainer';
+import Nav from './components/Nav/Nav';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import Users from './components/Users/UsersContainer';
+import { initializeApp } from './redux/appReducer';
+import { getMe, logout } from './redux/auth-redusers';
 import store from './redux/reduxStore';
+
+import './App.css';
+import 'antd/dist/antd.css';
+
+const { Header, Content, Sider } = Layout;
+
+
 class App extends Component {
   componentDidMount() {
     this.props.initializeApp()
@@ -29,24 +36,45 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <div className="mainWrap">
+        <Layout>
           <HeaderContainer />
-          <Nav />
+          <Layout>
+            <Sider width={200} className="site-layout-background">
+              <Nav />
+            </Sider>
+            <Layout style={{ padding: '0 24px 24px' }}>
+              {/* <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+                <Breadcrumb.Item>App</Breadcrumb.Item>
+              </Breadcrumb> */}
+              <Content
+                className="site-layout-background"
+                style={{
+                  padding: 24,
+                  margin: 0,
+                  minHeight: 280,
+                }}
+              >
+                <Route path='/dialogs'
+                  render={() => <DialogsContainer />} />
+                <Route path='/login'
+                  render={() => <Login />} />
+                <Route path='/profile/:userId?'
+                  render={() => <ProfileContainer />} />
+                <Route path='/users'
+                  render={() => <Users />} />
+              </Content>
+            </Layout>
+          </Layout>
+        </Layout>
+
+
+
+        <div className="mainWrap">
+
           <div className="mainWrap-content">
-            <Route path='/dialogs'
-              render={() => <DialogsContainer />} />
-            <Route path='/login'
-              render={() => <Login />} />
-            <Route path='/profile/:userId?'
-              render={() => <ProfileContainer />} />
-            <Route path='/groups'
-              render={() => <Groups />} />
-            <Route path='/music'
-              render={() => <Music />} />
-            <Route path='/settings'
-              render={() => <Settings />} />
-            <Route path='/users'
-              render={() => <Users />} />
+
           </div>
         </div>
       </BrowserRouter>
@@ -71,7 +99,7 @@ const MainApp = (props) => {
       </Provider>
     </React.StrictMode>
   )
-} 
+}
 
 export default MainApp
 

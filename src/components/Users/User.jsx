@@ -1,22 +1,32 @@
+import Avatar from 'antd/lib/avatar/avatar';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './User.module.css';
+import styles from './User.module.scss';
+import { UserOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+import { Button } from 'antd';
+
+const { Title } = Typography;
+
 
 const User = ({ user, followingInProgress, unfollow, follow }) => {
-  let defaultUserPhotoURL =
-    'https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg'
   return <div key={user.id} className={styles.item}>
     <NavLink to={'/profile/' + user.id}>
-      <img src={user.photos.small === null ? defaultUserPhotoURL : user.photos.small} alt="фоточка" />
+      {user.photos.small === null
+        ? <Avatar size={100} style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />
+        : <img src={user.photos.small} alt="photo" />}
     </NavLink>
     <div className={styles.info}>
-      <p className={styles.name}>{user.name}</p>
-      <p className={styles.status}>{user.status}</p>
+      <NavLink to={'/profile/' + user.id}>
+        <Title level={5}>{user.name}</Title>
+      </NavLink>
       {user.followed
-        ? <button disabled={followingInProgress.some(id => id === user.id)}
-          onClick={() => { unfollow(user.id) }} className={styles.follow}>Unfollow</button>
-        : <button disabled={followingInProgress.some(id => id === user.id)}
-          onClick={() => { follow(user.id) }} className={styles.follow}>Follow</button>}
+        ? <Button type="primary"
+          disabled={followingInProgress.some(id => id === user.id)}
+          onClick={() => { unfollow(user.id) }}> Unfollow</Button>
+        : <Button type="primary"
+          disabled={followingInProgress.some(id => id === user.id)}
+          onClick={() => { follow(user.id) }}> Follow</Button>}
     </div>
   </div>
 }

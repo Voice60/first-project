@@ -1,15 +1,19 @@
+import { stopSubmit } from "redux-form"
 import { profileAPI, usersAPI } from "../api/api"
 
 const ADD_POST = 'profile/ADD-POST'
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
 const SET_STATUS = 'profile/GET_STATUS'
+const SET_PHOTO_SUCCESS = 'profile/SET_PHOTO_SUCCESS'
 
 let initialState = {
   posts: [
     { name: 'Пенис', likes: 16, message: 'Хай' },
     { name: 'Пенис', likes: 16, message: 'i\'m gay' },
     { name: 'Пенис', likes: 16, message: 'Привет, это Пенесита' },
-    { name: 'Пенис', likes: 16, message: 'Я нигер' }
+    { name: 'Пенис', likes: 16, message: 'Я нигер' },
+    { name: 'Кирюша', likes: 54, message: 'Я пидорас' },
+    { name: 'Пенис', likes: 16, message: 'Я нигер' },
   ],
   profile: null,
   status: ''
@@ -38,6 +42,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         status: action.status
       }
+    case SET_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos}
+      }
     default:
       return state
   }
@@ -47,6 +56,7 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = (newPostText) => ({ type: ADD_POST, newPostText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+export const setPhotoSuccess = (photos) => ({ type: SET_PHOTO_SUCCESS, photos })
 
 // thunks
 
@@ -65,6 +75,24 @@ export const updateStatus = (status) => async (dispatch) => {
 
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status))
+  }
+}
+export const setPhoto = (photo) => async (dispatch) => {
+  let response = await profileAPI.savePhoto(photo)
+
+  if (response.data.resultCode === 0) {
+    dispatch(setPhotoSuccess(response.data.data.photos))
+  }
+}
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  let response = await profileAPI.saveProfile(profile)
+
+  if (response.data.resultCode === 0) {
+    dispatch(getUserProfile(userId))
+  } else {
+    dispatch(stopSubmit('profileData', {_error: response.data.messages[0]}))
+    return Promise.reject(response.data.messages[0]);
   }
 }
 
