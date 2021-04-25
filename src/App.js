@@ -1,10 +1,10 @@
 import { Layout } from 'antd';
-import 'antd/dist/antd.css';
 import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
+
 import { compose } from 'redux';
-import './App.css';
+
 import Preloader from './components/common/preloader/Preloader';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -14,6 +14,10 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import Users from './components/Users/UsersContainer';
 import { initializeApp } from './redux/appReducer';
 import store from './redux/reduxStore';
+
+import './App.css';
+import 'antd/dist/antd.css';
+import { Error } from './components/Error/Error';
 
 const { Content, Sider } = Layout;
 
@@ -60,15 +64,8 @@ class App extends Component {
             </Layout>
           </Layout>
         </Layout>
-
-
-
-        <div className="mainWrap">
-
-          <div className="mainWrap-content">
-
-          </div>
-        </div>
+        {/* Error component needs for alert error of the same App's part */}
+        <Error />
       </BrowserRouter>
     );
   }

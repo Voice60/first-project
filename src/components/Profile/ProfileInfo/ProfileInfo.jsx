@@ -4,12 +4,52 @@ import ProfileDataForm from './ProfileDataForm'
 import ProfileStatus from './ProfileStatus'
 import { UserOutlined } from '@ant-design/icons';
 import Title from 'antd/lib/typography/Title'
-import { Upload, message, Button, Popover } from 'antd';
+import { Modal, Upload, message, Button, Popover } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Avatar from 'antd/lib/avatar/avatar';
+import Text from 'antd/lib/typography/Text';
+import { Space } from 'antd';
+import styles from './ProfileInfo.module.scss'
 let ProfileInfo = (props) => {
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
-  let [editMode, setEditMode] = useState(false)
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const onSubmit = (formData) => {
+    formData.contacts = {
+      facebook: formData.facebook,
+      github: formData.github,
+      instagram: formData.instagram,
+      mainLink: formData.mainLink,
+      twitter: formData.twitter,
+      vk: formData.vk,
+      website: formData.website,
+      youtube: formData.youtube
+    }
+
+    delete formData.youtube
+    delete formData.website
+    delete formData.vk
+    delete formData.twitter
+    delete formData.mainLink
+    delete formData.instagram
+    delete formData.github
+    delete formData.facebook
+
+    props.saveProfile(formData)
+      .then(
+        () => {
+          setIsModalVisible(false)
+        }
+      )
+  }
+
   if (!props.profile) {
     return <Preloader />
   }
@@ -18,24 +58,6 @@ let ProfileInfo = (props) => {
     if (e.target.files.length > 0) {
       props.setPhoto(e.target.files[0])
     }
-  }
-
-  // const onPhotoSelected = (info) => {
-  //   if (info.file.status === 'done') {
-  //     props.setPhoto(info.file.originFileObj)
-  //     message.success(`${info.file.name} file uploaded successfully`);
-  //   } else if (info.file.status === 'error') {
-  //     message.error(`${info.file.name} file upload failed.`);
-  //   }
-  // }
-
-  const onSubmit = (formData) => {
-    props.saveProfile(formData)
-      .then(
-        () => {
-          setEditMode(false)
-        }
-      )
   }
 
   const content = (
@@ -61,30 +83,45 @@ let ProfileInfo = (props) => {
 
   return (
     <div key={props.profile.userId}>
-      {ProfilePhoto}
-      {editMode
-        ? <ProfileDataForm profile={props.profile} initialValues={props.profile} onSubmit={onSubmit} setEditMode={setEditMode} />
-        : <ProfileData isOwner={props.isOwner} setEditMode={setEditMode} profile={props.profile} status={props.status} updateStatus={props.updateStatus} />}
+      <div className={styles.mainInfo}>
+        {ProfilePhoto}
+        <div style={{ marginLeft: '20px' }}>
+          <Title ledel={3}>{props.profile.fullName}</Title>
+          <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+        </div>
 
+      </div>
+      <div>
+        {props.profile.aboutMe && <div><Text strong>About me: </Text> {props.profile.aboutMe}</div>}
+        <Text strong>About job: </Text>
+        <Text>
+          {props.profile.lookingForAJob
+            ? <>{props.profile.lookingForAJobDescription}</>
+            : <>don't interesting</>}
+        </Text>
+        <div className={styles.contacts}>
+          {
+
+            // If profile.contacts have at least 1 item, then map is start
+            Object.keys(props.profile.contacts).length && Object.keys(props.profile.contacts).map(el => {
+              if (props.profile.contacts[el] !== null) {
+                return <div><Text strong>{el}</Text>: <Text>{props.profile.contacts[el]}</Text> </div>
+              } else { return <></> }
+            })}
+        </div>
+
+        {props.isOwner &&
+          <Button size={'small'} type={'primary'} onClick={showModal}>Edit</Button>}
+
+      </div>
+      <ProfileDataForm visible={isModalVisible}
+        handleCancel={handleCancel}
+        profile={props.profile}
+        initialValues={props.profile}
+        onSubmit={onSubmit}
+        setEditMode={setIsModalVisible} />
     </div>
   )
-}
-
-const ProfileData = ({ profile, status, updateStatus, setEditMode, isOwner }) => {
-  return <div>
-    <Title ledel={3}>{profile.fullName}</Title>
-    <ProfileStatus status={status} updateStatus={updateStatus} />
-    {profile.aboutMe && <p><b>About me:</b> {profile.aboutMe}</p>}
-    <p> <b>About job:</b> {profile.lookingForAJob
-      ? <>{profile.lookingForAJobDescription}</>
-      : <>don't interesting</>}</p>
-    {Object.keys(profile.contacts).length && Object.keys(profile.contacts).map(el => {
-      if (profile.contacts[el] !== null) {
-        return <p><b>{el}</b>: {profile.contacts[el]} </p>
-      } else { return <></> }
-    })}
-    {isOwner && <button onClick={() => { setEditMode(true) }}>Edit</button>}
-  </div>
 }
 
 export default ProfileInfo

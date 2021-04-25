@@ -5,6 +5,7 @@ import usersReducer from "./usersReducer";
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from "./appReducer";
+import errorReducer from "./errorReducer";
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
@@ -13,7 +14,8 @@ let reducers = combineReducers({
   usersPage: usersReducer,
   auth: authReducer,
   form: formReducer,
-  app: appReducer
+  app: appReducer,
+  error: errorReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

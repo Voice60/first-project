@@ -1,5 +1,7 @@
+import { message } from "antd"
 import { stopSubmit } from "redux-form"
 import { profileAPI, usersAPI } from "../api/api"
+import { setErrorMessage } from "./errorReducer"
 
 const ADD_POST = 'profile/ADD-POST'
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
@@ -87,11 +89,10 @@ export const setPhoto = (photo) => async (dispatch) => {
 export const saveProfile = (profile) => async (dispatch, getState) => {
   const userId = getState().auth.userId;
   let response = await profileAPI.saveProfile(profile)
-
   if (response.data.resultCode === 0) {
     dispatch(getUserProfile(userId))
   } else {
-    dispatch(stopSubmit('profileData', {_error: response.data.messages[0]}))
+    dispatch(setErrorMessage(response.data.messages[0]))
     return Promise.reject(response.data.messages[0]);
   }
 }

@@ -1,51 +1,57 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Form, Button, Input, Modal } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 let ProfileDataForm = (props) => {
-  return <form onSubmit={props.handleSubmit}>
-    <div>
-      <label>
-        fullName:
-      <Field name="fullName" component="input" type="text" />
-      </label>
-    </div>
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  }
 
-    <div>
-      <label>
-        About Me:
-      <Field name="AboutMe" component="textarea" type="text" />
-      </label>
-    </div>
+  return <Modal title="Edit profile info"
+    visible={props.visible}
+    onCancel={props.handleCancel}
+    footer={null}>
 
-    <div>
-      <label>
-        Looking for a job:
-      <Field name="lookingForAJob" component="input" type="checkbox" />
-      </label>
-    </div>
-
-    <div>
-      <label>
-        Looking for a job Discription:
-      <Field name="lookingForAJobDescription" component="textarea" type="text" /></label>
-    </div>
-
-
-    {Object.keys(props.profile.contacts).length && Object.keys(props.profile.contacts).map(el => {
-      return <div key={el}>
-        <label>
-          <b>{el}</b>: <Field name={'contacts.' + el} component="input" type="text" />
-        </label>
-      </div>
-
-    })}
-    <button>Save</button>
-    {props.error && <div>{props.error}</div>}
-  </form>
+    <Form {...layout} onFinish={props.onSubmit}>
+      <Form.Item rules={[
+        {
+          required: true,
+          message: 'Name is required',
+        },
+      ]} initialValue={props.profile.fullName} name='fullName' label="Name" >
+        <Input />
+      </Form.Item>
+      <Form.Item rules={[
+        {
+          required: true,
+          message: 'About Me is required',
+        },
+      ]} initialValue={props.profile.aboutMe} name='AboutMe' label="About Me" >
+        <TextArea />
+      </Form.Item>
+      <Form.Item initialValue={props.profile.lookingForAJob} name='lookingForAJOB' label="Looking for a job" >
+        <Checkbox />
+      </Form.Item>
+      <Form.Item rules={[
+        {
+          required: true,
+          message: 'Job desciprion is required',
+        },
+      ]} initialValue={props.profile.lookingForAJobDescription} name='lookingForAJOBDescription' label="Job desciprion" >
+        <Input />
+      </Form.Item>
+      {Object.keys(props.profile.contacts).length && Object.keys(props.profile.contacts).map(el => {
+        return <Form.Item initialValue={props.profile.contacts[el]} name={el} label={el} >
+          <Input />
+        </Form.Item>
+      })}
+      <Form.Item wrapperCol={{ offset: 8, span: 16  }}>
+        <Button type='primary' htmlType='submit'>Submit</Button>
+      </Form.Item>
+    </Form>
+  </Modal>
 }
 
-let ProfileDataFormWrap = reduxForm({
-  form: 'profileData'
-})(ProfileDataForm)
-
-export default ProfileDataFormWrap
+export default ProfileDataForm

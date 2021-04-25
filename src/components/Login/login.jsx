@@ -2,31 +2,24 @@ import { Button, Checkbox, Form, Input, message } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { login } from "../../redux/auth-redusers";
 
 let Login = (props) => {
   let onFinish = (values) => {
-    login(values.email, values.password, values.rememberMe, values.captcha)
+    props.login(values.email, values.password, values.rememberMe, values.captcha)
   }
 
-  let showerror = (error) => {
-    if (error) {
-      message.error(error)
-    }
-  }
-  
   if (props.isAuth) {
     return <Redirect to={'/profile'} />
   }
 
   return (
-    <div>
+    <div style={{maxWidth: '400px', margin: '0 auto'}}>
       <Title>Авторизация</Title>
       <Form
         name='basic'
         onFinish={onFinish}>
         <Form.Item
-          name='login'
+          name='email'
           rules={[
             {
               required: true,
@@ -45,23 +38,23 @@ let Login = (props) => {
           ]}>
           <Input.Password placeholder='password' />
         </Form.Item>
-        {props.captchaURL && <img src={props.captchaUrl} alt='captcha'/>}
+        {props.captchaURL && <img style={{marginBottom: '24px'}} src={props.captchaURL} alt='captcha'/>}
         {props.captchaURL && <Form.Item
           name='captcha'
           rules={[
             {
               required: true,
-              message: 'Please input your login!',
+              message: 'captcha is required!',
             },
           ]}>
           <Input placeholder='captcha' />
         </Form.Item>}
 
-        <Form.Item name="rememberMe" default={false} valuePropName="checked">
+        <Form.Item name="rememberMe" valuePropName="checked">
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
         <Form.Item >
-          <Button onClick={showerror} type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
