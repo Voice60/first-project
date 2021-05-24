@@ -10,12 +10,6 @@ const SET_PHOTO_SUCCESS = 'profile/SET_PHOTO_SUCCESS'
 
 let initialState = {
   posts: [
-    { name: 'Пенис', likes: 16, message: 'Хай' },
-    { name: 'Пенис', likes: 16, message: 'i\'m gay' },
-    { name: 'Пенис', likes: 16, message: 'Привет, это Пенесита' },
-    { name: 'Пенис', likes: 16, message: 'Я нигер' },
-    { name: 'Кирюша', likes: 54, message: 'Я пидорас' },
-    { name: 'Пенис', likes: 16, message: 'Я нигер' },
   ],
   profile: null,
   status: ''

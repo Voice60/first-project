@@ -22,6 +22,7 @@ let ProfileInfo = (props) => {
   }
 
   const onSubmit = (formData) => {
+    // Временное решение
     formData.contacts = {
       facebook: formData.facebook,
       github: formData.github,

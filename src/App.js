@@ -7,17 +7,17 @@ import { compose } from 'redux';
 
 import Preloader from './components/common/preloader/Preloader';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import { Error } from './components/Error/Error';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/LoginContainer';
 import Nav from './components/Nav/Nav';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import Users from './components/Users/UsersContainer';
+import Users from './components/Users/Users';
 import { initializeApp } from './redux/appReducer';
 import store from './redux/reduxStore';
 
 import './App.css';
 import 'antd/dist/antd.css';
-import { Error } from './components/Error/Error';
 
 const { Content, Sider } = Layout;
 
