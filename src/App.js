@@ -13,6 +13,7 @@ import Login from './components/Login/LoginContainer';
 import Nav from './components/Nav/Nav';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Users from './components/Users/Users';
+import ChatPage from './pages/Chat/ChatPage';
 import { initializeApp } from './redux/appReducer';
 import store from './redux/reduxStore';
 
@@ -53,13 +54,15 @@ class App extends Component {
                 }}
               >
                 <Route path='/dialogs'
-                  render={() => <DialogsContainer />} />
+                  render={() => <ChatPage />} />
                 <Route path='/login'
                   render={() => <Login />} />
                 <Route path='/profile/:userId?'
                   render={() => <ProfileContainer />} />
                 <Route path='/users'
                   render={() => <Users />} />
+                <Route path='/chat'
+                  render={() => <ChatPage />} />
               </Content>
             </Layout>
           </Layout>
