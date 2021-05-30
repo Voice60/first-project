@@ -11,7 +11,16 @@ const Nav = () => {
       mode="inline"
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['sub1']}
-      style={{ height: '100%', borderRight: 0 }}
+      style={{
+        height: '100%', 
+        borderRight: 0,
+        overflow: 'auto',
+        position: 'fixed',
+        left: 0,
+        marginTop: '64px',
+        maxWidth: '200px'
+
+      }}
     >
       <Menu.Item key="1">
         <NavLink to='/profile'>Profile</NavLink>
@@ -19,7 +28,7 @@ const Nav = () => {
       <Menu.Item key="2">
         <NavLink to='/dialogs'>Messages</NavLink>
       </Menu.Item>
-      <Menu.Item key="3\\ъъъ\\">
+      <Menu.Item key="3">
         <NavLink to='/users'>Users</NavLink>
       </Menu.Item>
     </Menu>

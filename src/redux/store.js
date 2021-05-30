@@ -6,6 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from "./appReducer";
 import errorReducer from "./errorReducer";
+import chatReducer from "./chatReducer";
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
@@ -15,7 +16,8 @@ let reducers = combineReducers({
   auth: authReducer,
   form: formReducer,
   app: appReducer,
-  error: errorReducer
+  error: errorReducer,
+  chat: chatReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

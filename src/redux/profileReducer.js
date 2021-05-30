@@ -1,5 +1,3 @@
-import { message } from "antd"
-import { stopSubmit } from "redux-form"
 import { profileAPI, usersAPI } from "../api/api"
 import { setErrorMessage } from "./errorReducer"
 
@@ -41,7 +39,7 @@ const profileReducer = (state = initialState, action) => {
     case SET_PHOTO_SUCCESS:
       return {
         ...state,
-        profile: {...state.profile, photos: action.photos}
+        profile: { ...state.profile, photos: action.photos }
       }
     default:
       return state
@@ -58,28 +56,28 @@ export const setPhotoSuccess = (photos) => ({ type: SET_PHOTO_SUCCESS, photos })
 
 export const getUserProfile = (userId) => async (dispatch) => {
   let response = await usersAPI.setUserProfile(userId)
-
   dispatch(setUserProfile(response.data))
 }
+
 export const getStatus = (userId) => async (dispatch) => {
   let response = await profileAPI.getStatus(userId)
-
   dispatch(setStatus(response.data))
 }
+
 export const updateStatus = (status) => async (dispatch) => {
   let response = await profileAPI.updateStatus(status)
-
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status))
   }
 }
+
 export const setPhoto = (photo) => async (dispatch) => {
   let response = await profileAPI.savePhoto(photo)
-
   if (response.data.resultCode === 0) {
     dispatch(setPhotoSuccess(response.data.data.photos))
   }
 }
+
 export const saveProfile = (profile) => async (dispatch, getState) => {
   const userId = getState().auth.userId;
   let response = await profileAPI.saveProfile(profile)

@@ -4,7 +4,7 @@ const initialState = {
   errorMessage: null
 }
 
-export default (state = initialState, action) => {
+const errorReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_ERROR_MESSAGE:
@@ -20,3 +20,4 @@ export const setErrorMessage = (errorMessage) => ({
   errorMessage
 })
 
+export default errorReducer

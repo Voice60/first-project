@@ -15,7 +15,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import Users from './components/Users/Users';
 import ChatPage from './pages/Chat/ChatPage';
 import { initializeApp } from './redux/appReducer';
-import store from './redux/reduxStore';
+import store from './redux/store';
 
 import './App.css';
 import 'antd/dist/antd.css';
@@ -33,13 +33,13 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <Layout>
+        <Layout style={{minHeight: '100vh'}}>
           <HeaderContainer />
           <Layout>
             <Sider width={200} className="site-layout-background">
               <Nav />
             </Sider>
-            <Layout style={{ padding: '0 24px 24px' }}>
+            <Layout className='layout'>
               {/* <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -50,7 +50,6 @@ class App extends Component {
                 style={{
                   padding: 24,
                   margin: 0,
-                  minHeight: 280,
                 }}
               >
                 <Route path='/dialogs'
@@ -67,7 +66,7 @@ class App extends Component {
             </Layout>
           </Layout>
         </Layout>
-        {/* Error component needs for alert error of the same App's part */}
+        {/* Error component needs for alert an error of the same App's part */}
         <Error />
       </BrowserRouter>
     );
