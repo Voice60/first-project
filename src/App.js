@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import { compose } from 'redux';
 
@@ -60,8 +60,8 @@ class App extends Component {
                   render={() => <ProfileContainer />} />
                 <Route path='/users'
                   render={() => <Users />} />
-                <Route path='/chat'
-                  render={() => <ChatPage />} />
+                <Route exact path='/'
+                  render={() => <Redirect to='/profile' />} />
               </Content>
             </Layout>
           </Layout>

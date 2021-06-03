@@ -2,9 +2,11 @@ import { chatAPI } from "../api/chatAPI"
 
 export const SET_MESSAGES = 'chat/SET_MESSAGES'
 export const CLEAR_MESSAGES = 'chat/CLEAR_MESSAGES'
+export const SET_CONNECTED = 'chat/SET_CONNECTED'
 
 const initialState = {
-  messages: []
+  messages: [],
+  isConnected: false
 }
 
 const chatReducer = (state = initialState, { type, payload }) => {
@@ -20,6 +22,12 @@ const chatReducer = (state = initialState, { type, payload }) => {
         messages: []
       }
 
+    case SET_CONNECTED:
+      return {
+        ...state,
+        isConnected: payload
+      }
+
     default:
       return state
   }
@@ -27,6 +35,7 @@ const chatReducer = (state = initialState, { type, payload }) => {
 
 export const setMessages = messages => ({ type: SET_MESSAGES, payload: messages })
 export const clearMessages = () => ({ type: CLEAR_MESSAGES })
+export const setConnected = (status) => ({ type: SET_CONNECTED, payload: status })
 
 let _newMessagesHandler = null
 
@@ -38,15 +47,27 @@ const newMessageHandlerCreator = (dispatch) => {
   }
   return _newMessagesHandler
 }
+let _statusChangedHandler = null
+
+const statusChangedHandlerCreator = (dispatch) => {
+  if (_statusChangedHandler === null) {
+    _statusChangedHandler = (status) => {
+      dispatch(setConnected(status))
+    }
+  }
+  return _statusChangedHandler
+}
 
 export const startMessagesListening = () => async (dispatch) => {
   chatAPI.start()
-  chatAPI.subscribe(newMessageHandlerCreator(dispatch))
+  chatAPI.subscribe('message', newMessageHandlerCreator(dispatch))
+  chatAPI.subscribe('connect', statusChangedHandlerCreator(dispatch))
 }
 
 export const stopMessagesListening = () => async (dispatch) => {
   dispatch(clearMessages())
-  chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+  chatAPI.unsubscribe('message', newMessageHandlerCreator(dispatch))
+  chatAPI.unsubscribe('connect', statusChangedHandlerCreator(dispatch))
   chatAPI.stop()
 }
 

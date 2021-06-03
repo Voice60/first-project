@@ -1,21 +1,22 @@
-let subscribers = []
+const subscribers = {
+  'message': [],
+  'connect': []
+}
 let ws
 
 const openHandler = () => {
-  //setConnected(true)
-
+  notifySubscribersAboutStatus(true)
 }
 const closeHandler = () => {
+  notifySubscribersAboutStatus(false)
   setTimeout(connect, 2000)
-  // setErrorMessage('Соединение потеряно')
 }
 const messageHandler = (event) => {
   const newMessages = JSON.parse(event.data)
-  subscribers.forEach(s => s(newMessages))
+  subscribers['message'].forEach(s => s(newMessages))
 }
 const errorHandler = () => {
-  // setErrorMessage('Произошла ошибка')
-
+  notifySubscribersAboutStatus(false)
 }
 
 const cleanUp = () => {
@@ -25,53 +26,35 @@ const cleanUp = () => {
   ws?.removeEventListener('error', errorHandler)
 }
 
+const notifySubscribersAboutStatus = (status) => {
+  subscribers['connect'].forEach(s => {s(status)})
+}
+
 const connect = () => {
   cleanUp()
   ws?.close()
   ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-
+  notifySubscribersAboutStatus(false)
   ws.addEventListener('close', closeHandler)
   ws.addEventListener('message', messageHandler)
   ws.addEventListener('open', openHandler)
   ws.addEventListener('error', errorHandler)
 }
 
-// const connect = () => {
-
-//   ws?.close()
-//   ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-
-//   ws.onclose = () => {
-//     setTimeout(connect, 2000)
-//   }
-//   ws.onopen = () => {
-
-//   }
-//   ws.onerror = () => {
-
-//   }
-//   ws.onmessage = (event) => {
-//     const newMessages = JSON.parse(event.data)
-//     subscribers.forEach(s => s(newMessages))
-//   }
-// }
-
-
-
 export const chatAPI = {
   start() {
     connect()
   },
   stop() {
-    subscribers = []
+    subscribers['message'] = []
     cleanUp()
     ws?.close()
   },
-  subscribe(callback) {
-    subscribers.push(callback)
+  subscribe(event ,callback) {
+    subscribers[event].push(callback)
   },
-  unsubscribe(callback) {
-    subscribers.filter(s => s !== callback)
+  unsubscribe(event, callback) {
+    subscribers[event] = subscribers[event].filter(s => s !== callback)
   },
   sendMessage(message) {
     ws?.send(message)
